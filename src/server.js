@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-// const debug = require('debug')('app:server');
+const debug = require('debug')('app:server');
 const bodyParser = require('body-parser');
 
 const config = require('./config/index');
@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 
 app.listen(config.app.port, () => {
-  console.log(`Listening on http://localhost:${config.app.port}`);
+  debug(`Listening on http://localhost:${config.app.port}`);
 
   // sequelize.authenticate().then(() => {
   //   console.log('Base de datos conectada!!!');
