@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/server",
-    "debug": "DEBUG=express:*,app:* npm run dev"
+    "dev": "DEBUG=app:* nodemon src/server.js"
   },
   "author": "",
   "license": "ISC",
