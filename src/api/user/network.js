@@ -106,7 +106,7 @@ const remove = (req, res, next) => {
 router.get('/', secure('list'), list);
 router.get('/:id', get);
 router.post('/signup', insert);
-router.put('/:id', update);
-router.delete('/:id', remove);
+router.put('/:id', secure('update'), update);
+router.delete('/:id', secure('remove'), remove);
 
 module.exports = router;
