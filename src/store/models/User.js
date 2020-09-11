@@ -5,11 +5,30 @@ class User extends Model {}
 
 User.init(
 	{
-    name: DataTypes.STRING,
-		username: DataTypes.STRING,
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		username: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		age: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		email: {
+			type: DataTypes.STRING,
+			unique: true,
+			allowNull: false,
+		},
+		role: {
+			// 1: User, 2: Nana, 3: Admin
+			type: DataTypes.INTEGER,
+			defaultValue: 0,
+		},
 	},
 	{ sequelize, modelName: 'user' }
 );
-
 
 module.exports = User;
