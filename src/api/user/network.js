@@ -104,7 +104,7 @@ const remove = (req, res, next) => {
 };
 
 router.get('/', secure('list'), list);
-router.get('/:id', get);
+router.get('/:id', secure('list'), get);
 router.post('/signup', insert);
 router.put('/:id', secure('update'), update);
 router.delete('/:id', secure('remove'), remove);
