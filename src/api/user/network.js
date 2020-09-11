@@ -1,69 +1,59 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const router = express.Router();
 const response = require('../../network/response');
-const User = require('../../store/models/User');
-const Auth = require('../../store/models/Auth');
+const controller = require('./controller');
+const auth = require('../auth/controller');
+const secure = require('./secure');
 
-router.get('/', (req, res, next) => {
-	User.findAll()
+const list = (req, res, next) => {
+	controller
+		.list()
 		.then((users) => {
 			response.success(req, res, users, 200, 'All users Ok');
 		})
 		.catch(next);
-});
+};
 
-router.get('/:id', (req, res, next) => {
-	User.findAll({
-		where: {
-			id: req.params.id,
-		},
-	})
+const get = (req, res, next) => {
+	controller
+		.get(req.params.id)
 		.then((users) => {
 			response.success(req, res, users, 200, 'User Ok');
 		})
 		.catch(next);
-});
+};
 
-router.post('/', (req, res, next) => {
-	User.create({
-		name: req.body.name,
-		username: req.body.username,
-		email: req.body.email,
-		age: req.body.age,
-		rol: req.body.rol,
-	})
+const insert = (req, res, next) => {
+	controller
+		.insert(req.body)
 		.then((user) => {
-			response.success(req, res, user, 200, 'User Created Ok');
+			response.success(
+				req,
+				res,
+				user,
+				200,
+				'User Register Ok'
+			);
 		})
 		.catch(next);
 
-	Auth.create({
-		username: req.body.username,
-		password: bcrypt.hashSync(req.body.password, 10),
-		email: req.body.email,
-	})
+	auth
+		.insert(req.body)
 		.then((auth) => {
-			response.success(req, res, auth, 200, 'User Created Ok');
+			response.success(
+				req,
+				res,
+				auth,
+				200,
+				'Auth Register Ok'
+			);
 		})
 		.catch(next);
-});
+};
 
-router.put('/:id', (req, res, next) => {
-	User.update(
-		{
-      name: req.body.name,
-      username: req.body.username,
-      email: req.body.email,
-      age: req.body.age,
-      rol: req.body.rol,
-		},
-		{
-			where: {
-				id: req.params.id,
-			},
-		}
-	)
+const update = (req, res, next) => {
+	controller
+		.update(req.body, req.params.id)
 		.then((user) => {
 			response.success(
 				req,
@@ -74,14 +64,18 @@ router.put('/:id', (req, res, next) => {
 			);
 		})
 		.catch(next);
-});
 
-router.delete('/:id', (req, res, next) => {
-	User.destroy({
-		where: {
-			id: req.params.id,
-		},
-	})
+	auth
+		.update(req.body, req.params.id)
+		.then((auth) => {
+			response.success(req, res, auth, 200, 'User Created Ok');
+		})
+		.catch(next);
+};
+
+const remove = (req, res, next) => {
+	controller
+		.remove(req.params.id)
 		.then((result) => {
 			response.success(
 				req,
@@ -93,6 +87,26 @@ router.delete('/:id', (req, res, next) => {
 			);
 		})
 		.catch(next);
-});
+
+	auth
+		.remove(req.params.id)
+		.then((result) => {
+			response.success(
+				req,
+				res,
+				{
+					userDelete: `${result} userAuth delete with id=${req.params.id} `,
+				},
+				200
+			);
+		})
+		.catch(next);
+};
+
+router.get('/', secure('list'), list);
+router.get('/:id', get);
+router.post('/signup', insert);
+router.put('/:id', update);
+router.delete('/:id', remove);
 
 module.exports = router;

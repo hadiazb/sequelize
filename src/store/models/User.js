@@ -14,8 +14,9 @@ User.init(
 			allowNull: false
 		},
 		age: {
-			type: DataTypes.STRING,
-			allowNull: false
+			type: DataTypes.INTEGER,
+			allowNull: true,
+			defaultValue: 0
 		},
 		email: {
 			type: DataTypes.STRING,

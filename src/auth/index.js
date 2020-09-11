@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const error = require('../utils/error');
+const error = require('../util/error');
 const config = require('../config/index');
 
 function sign(data) {
