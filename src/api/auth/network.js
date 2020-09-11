@@ -14,7 +14,7 @@ router.post('/login', function (req, res) {
 			response.error(
 				req,
 				res,
-				'Error in your information',
+				'Error in your information, non-existent user ',
 				400
 			);
 		});
