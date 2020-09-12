@@ -5,13 +5,9 @@ class Services extends Model {}
 
 Services.init(
 	{
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false
-		},
 		recommendations: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: false,
 		},
 		latitude: {
 			type: DataTypes.FLOAT,
@@ -20,7 +16,18 @@ Services.init(
 		longitude: {
 			type: DataTypes.FLOAT,
 			allowNull: true,
-		}
+		},
+		servicesStart: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: DataTypes.NOW
+		},
+		servicesEnd: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: DataTypes.NOW
+
+		},
 	},
 	{ sequelize, modelName: 'services' }
 );

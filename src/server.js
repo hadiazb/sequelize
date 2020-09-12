@@ -17,7 +17,7 @@ app.listen(config.app.port, () => {
 	debug(`Listening on http://localhost:${config.app.port}`);
 
 	sequelize
-		.sync({ force: false })
+		.sync({ force: true })
 		.then(() => {
 			console.log('Base de datos conectada!!!');
 		})
