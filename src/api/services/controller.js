@@ -13,7 +13,6 @@ const get = (id) => {
 };
 
 const insert = (body) => {
-	console.log(body);
 	return Services.create({
 		recommendations: body.recommendations,
 		latitude: body.latitude,
@@ -31,7 +30,7 @@ const update = (body, id) => {
 			recommendations: body.recommendations,
 			latitude: body.latitude,
 			longitude: body.longitude,
-			serviceStart: body.serviceStart,
+			serviceStart:  body.serviceStart,
 			serviceEnd: body.serviceEnd,
 		},
 		{

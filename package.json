@@ -1,24 +1,49 @@
 {
-  "name": "sequelize-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "DEBUG=app:* nodemon src/server.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
-    "debug": "^4.1.1",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.1.0",
-    "sequelize": "^6.3.5"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  }
+	"name": "sequelize-project",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "DEBUG=app:* nodemon src/server.js",
+		"test:watch": "jest --watch"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.0.0",
+		"body-parser": "^1.19.0",
+		"debug": "^4.1.1",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"mysql2": "^2.1.0",
+		"sequelize": "^6.3.5"
+	},
+	"devDependencies": {
+		"eslint": "^7.9.0",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-prettier": "^3.1.4",
+		"husky": "^4.3.0",
+		"jest": "^26.4.2",
+		"lint-staged": "^10.3.0",
+		"nodemon": "^2.0.4"
+	},
+	"jest": {
+		"testEnvironment": "node",
+		"collectCoverage": true,
+		"testResultsProcessor": "jest-sonar-reporter",
+		"coveragePathIgnorePatterns": [
+			"/node_modules/",
+			"/test/",
+			"/store/models/"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.js": "eslint --cache --fix"
+	}
 }

@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db');
+const User = require('./User');
 
 class Services extends Model {}
 
@@ -20,13 +21,19 @@ Services.init(
 		servicesStart: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: DataTypes.NOW
+			defaultValue: DataTypes.NOW,
 		},
 		servicesEnd: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: DataTypes.NOW
-
+			defaultValue: DataTypes.NOW,
+		},
+		userId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: User,
+				key: 'id',
+			},
 		},
 	},
 	{ sequelize, modelName: 'services' }
