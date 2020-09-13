@@ -17,11 +17,11 @@ app.listen(config.app.port, () => {
 	debug(`Listening on http://localhost:${config.app.port}`);
 
 	sequelize
-		.sync({ force: true })
+		.sync({ force: false })
 		.then(() => {
-			console.log('Base de datos conectada!!!');
+			debug('Base de datos conectada!!!');
 		})
 		.catch((error) => {
-			console.log('Se produjo un a error', error);
+			debug('Se produjo un a error', error);
 		});
 });
